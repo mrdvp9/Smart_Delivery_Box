@@ -3,452 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Amazing Product - Landing Page</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            padding: 0.5rem 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 70px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .feature-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .feature-card p {
-            color: #666;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 5rem 2rem;
-            background: #f8f9fa;
-        }
-
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Smart Home Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo">YourBrand</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Build Something Amazing</h1>
-            <p>Transform your ideas into reality with our innovative solutions. Fast, reliable, and built for the future.</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Get Started</a>
-                <a href="#features" class="btn btn-secondary">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <h2 class="section-title">Why Choose Us</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Lightning Fast</h3>
-                <p>Experience blazing fast performance that keeps your users engaged and satisfied.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Secure & Reliable</h3>
-                <p>Built with security in mind. Your data is protected with industry-leading encryption.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Beautiful Design</h3>
-                <p>Stunning, modern interfaces that users love. Responsive across all devices.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>Easy to Scale</h3>
-                <p>Grow your business without limits. Our solutions scale seamlessly with your needs.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💡</div>
-                <h3>Smart Solutions</h3>
-                <p>Intelligent features that adapt to your workflow and boost productivity.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤝</div>
-                <h3>24/7 Support</h3>
-                <p>Our dedicated team is always here to help you succeed, anytime you need us.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-container">
-            <h2 class="section-title">Get In Touch</h2>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="user-info">
+                <div class="user-avatar">A</div>
+                <div>
+                    <div class="user-greeting">Welcome, Aron</div>
+                    <div class="user-name">Manage Your Smart Home</div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-            </form>
+            </div>
+            <div class="header-icon">⚙️</div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 YourBrand. All rights reserved.</p>
-    </footer>
+        <!-- Weather Card -->
+        <div class="main-card">
+            <div class="weather-display">
+                <div>
+                    <div class="weather-temp">23<span class="weather-unit">°C</span></div>
+                    <div class="weather-desc">Mostly Cloudy</div>
+                </div>
+                <div class="weather-icon">🌧️</div>
+            </div>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+            <!-- Room Tabs -->
+            <div class="room-tabs">
+                <button class="room-tab active">Living Room</button>
+                <button class="room-tab">Bedroom</button>
+                <button class="room-tab">Dining Room</button>
+                <button class="room-tab">Kitchen</button>
+            </div>
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+            <!-- Device Grid -->
+            <div class="device-grid">
+                <div class="device-card large active">
+                    <div>
+                        <div class="device-icon">❄️</div>
+                        <div class="device-name">AC Unit</div>
+                        <div class="device-status">Turn on</div>
+                    </div>
+                    <div class="device-value">9</div>
+                </div>
 
-        // Intersection Observer for feature cards animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+                <div class="device-card">
+                    <div class="device-icon">💡</div>
+                    <div class="device-name">Light</div>
+                    <div class="device-status">200 W</div>
+                </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
-                }
-            });
-        }, observerOptions);
+                <div class="device-card">
+                    <div class="device-icon">📺</div>
+                    <div class="device-name">Smart tv</div>
+                    <div class="device-status">On</div>
+                </div>
 
-        document.querySelectorAll('.feature-card').forEach(card => {
-            observer.observe(card);
-        });
+                <div class="device-card">
+                    <div class="device-icon">📶</div>
+                    <div class="device-name">Wi-Fi</div>
+                    <div class="device-status">Connected</div>
+                </div>
 
-        // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            };
+                <div class="device-card">
+                    <div class="device-icon">🎵</div>
+                    <div class="device-name">Hue</div>
+                    <div class="device-status">Playing</div>
+                </div>
+            </div>
+        </div>
 
-            // Here you would typically send this to a backend API
-            console.log('Form submitted:', formData);
-            
-            // Show success message
-            alert('Thank you for your message! We\'ll get back to you soon.');
-            
-            // Reset form
-            this.reset();
-        });
-    </script>
+        <!-- Climate Control Card -->
+        <div class="climate-card">
+            <div class="climate-header">
+                <div>
+                    <div class="climate-title">Air Conditioner</div>
+                    <div class="climate-subtitle">Living Room • Climate</div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="nav-btn">←</button>
+                    <button class="nav-btn">⚙️</button>
+                </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="control-buttons">
+                <button class="control-btn">
+                    <span>💨</span>
+                    <span class="control-label">Air Speed</span>
+                </button>
+                <button class="control-btn">
+                    <span>⏱️</span>
+                    <span class="control-label">Timer</span>
+                </button>
+                <button class="control-btn active">
+                    <span>❄️</span>
+                    <span class="control-label">Cooling</span>
+                </button>
+                <button class="control-btn">
+                    <span>☀️</span>
+                    <span class="control-label">Heat</span>
+                </button>
+            </div>
+
+            <!-- Temperature Circle -->
+            <div class="temp-circle-container">
+                <div class="temp-circle">
+                    <svg width="220" height="220" class="circle-svg">
+                        <circle cx="110" cy="110" r="90" class="circle-bg"/>
+                        <circle cx="110" cy="110" r="90" class="circle-progress" id="progressCircle"/>
+                    </svg>
+                    <div class="temp-display">
+                        <div class="temp-value">20°C</div>
+                        <div class="temp-label">Current</div>
+                    </div>
+                    <div class="temp-controls left">
+                        <button class="temp-btn" onclick="decreaseTemp()">−</button>
+                    </div>
+                    <div class="temp-controls right">
+                        <button class="temp-btn" onclick="increaseTemp()">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">🌡️</div>
+                    <div class="stat-info">
+                        <div class="stat-value">10°C</div>
+                        <div class="stat-label">Temp.</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon active">⚡</div>
+                    <div class="stat-info">
+                        <div class="stat-value">32%</div>
+                        <div class="stat-label">Humidity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spacing for bottom nav -->
+        <div style="height: 80px;"></div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <div class="nav-item-icon">🏠</div>
+            <div class="nav-item-label">Home</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-item-icon">📊</div>
+            <div class="nav-item-label">Stats</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-item-icon">⚙️</div>
+            <div class="nav-item-label">Settings</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-item-icon">👤</div>
+            <div class="nav-item-label">Profile</div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
