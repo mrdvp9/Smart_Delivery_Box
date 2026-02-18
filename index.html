@@ -3,56 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery Box</title>
+    <title>Door Lock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="phone">
         <!-- Page 1: Dashboard -->
         <div class="page" id="page1">
-
             <div class="page-header">
-                <br>
-                <br>
-                <br>
-                <h1>Dashboard</h1>
-                <p>Manage Box</p>
+                <h1>DOOR LOCK</h1>
+                <p>Main Control</p>
             </div>
 
             <div class="dashboard-grid">
                 <!-- Recent Access -->
-                <div class="big-card" onclick="showPage('page2')">
-                    <div class="card-icon">✅</div>
+                <div class="card" onclick="showPage('page2')">
                     <h3>Recent Access</h3>
-                    <div class="mini-list">
-                        <div>Package <span>2m</span></div>
-                        <div>Food<span>15m</span></div>
+                    <div class="access-list">
+                        <div class="access-row">
+                            <span class="name">John Doe</span>
+                            <span class="time">2 mins ago</span>
+                        </div>
+                        <div class="access-row">
+                            <span class="name">Jane Smith</span>
+                            <span class="time">15 mins ago</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Generate OTP -->
-                <div class="big-card" onclick="generateOTP()">
-                    <div class="card-icon">🔑</div>
-                    <h3>Generate OTP</h3>
-                    <div class="otp-box" id="otpBox"></div>
+                <!-- Generate OTP for Food -->
+                <div class="card otp-card" onclick="generateOTP('food')">
+                    <h3>Food Delivery</h3>
+                    <p class="subtitle">Generate OTP</p>
+                    <div class="otp-display" id="otpFood"></div>
                 </div>
 
-                <!-- Quick Actions Grid -->
-                <div class="icon-grid">
-                    <div class="icon-btn active">
-                        <div class="icon">📋</div>
+                <!-- Generate OTP for Package -->
+                <div class="card otp-card" onclick="generateOTP('package')">
+                    <h3>Package Delivery</h3>
+                    <p class="subtitle">Generate OTP</p>
+                    <div class="otp-display" id="otpPackage"></div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="action-grid">
+                    <div class="action-btn" onclick="showPage('page2')">
                         <span>History</span>
                     </div>
-                    <div class="icon-btn">
-                        <div class="icon">⏱️</div>
-                        <span>Active</span>
+                    <div class="action-btn" onclick="showPage('page3')">
+                        <span>OTP History</span>
                     </div>
-                    <div class="icon-btn">
-                        <div class="icon">🔒</div>
-                        <span>Lockout</span>
+                    <div class="action-btn" onclick="toggleLockout()">
+                        <span id="lockBtn">Lockout</span>
                     </div>
-                    <div class="icon-btn" onclick="window.open('http://192.168.0.140', '_blank')">
-                        <div class="icon">📷</div>
+                    <div class="action-btn" onclick="showPage('page4')">
                         <span>Photos</span>
                     </div>
                 </div>
@@ -61,42 +66,22 @@
             <div class="nav-dots">
                 <span class="dot active"></span>
                 <span class="dot" onclick="showPage('page2')"></span>
+                <span class="dot" onclick="showPage('page3')"></span>
+                <span class="dot" onclick="showPage('page4')"></span>
             </div>
         </div>
 
-        <!-- Page 2: Details -->
+        <!-- Page 2: Access Details -->
         <div class="page hidden" id="page2">
-        
             <div class="page-header">
-                <button class="back-btn" onclick="showPage('page1')">←</button>
-                <div>
-                    <br>
-                    <br>
-                    <br>
-                    <h1>Details</h1>
-                    <p>Access & Security</p>
-                </div>
+                <h1>ACCESS LOG</h1>
+                <p>Recent Activity</p>
             </div>
 
             <div class="details-grid">
-                <!-- Active OTPs -->
-                <div class="detail-card">
-                    <h3>🔑 Active OTPs</h3>
-                    <div class="otp-list" id="activeOtps">
-                        <div class="otp-item">
-                            <span class="code">1234</span>
-                            <span class="expire">5m left</span>
-                        </div>
-                        <div class="otp-item">
-                            <span class="code">5678</span>
-                            <span class="expire">12m left</span>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Past Opens -->
-                <div class="detail-card">
-                    <h3>📋 Past Opens</h3>
+                <div class="card">
+                    <h3>Past Opens</h3>
                     <div class="history-list">
                         <div class="history-row">
                             <div>
@@ -108,33 +93,97 @@
                         <div class="history-row">
                             <div>
                                 <div class="name">Jane Smith</div>
-                                <div class="method">Card</div>
+                                <div class="method">Card Access</div>
                             </div>
                             <div class="date">11:45 AM</div>
+                        </div>
+                        <div class="history-row">
+                            <div>
+                                <div class="name">Bob Wilson</div>
+                                <div class="method">OTP: 5678</div>
+                            </div>
+                            <div class="date">Yesterday</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Photos -->
-                <div class="detail-card">
-                    <h3>📷 Recent Photos</h3>
-                    <div class="photo-row">
-                        <div class="photo-box">📸<span>2m</span></div>
-                        <div class="photo-box">📸<span>15m</span></div>
-                        <div class="photo-box">📸<span>1h</span></div>
+                <!-- Lockout Status -->
+                <div class="card">
+                    <h3>Security Status</h3>
+                    <div class="status-box">
+                        <span id="lockStatus">NORMAL</span>
                     </div>
-                </div>
-
-                <!-- Lockout -->
-                <div class="detail-card lockout-card" onclick="toggleLockout()">
-                    <h3>🔒 Lockout</h3>
-                    <div class="lockout-status" id="lockStatus">Normal</div>
                 </div>
             </div>
 
             <div class="nav-dots">
                 <span class="dot" onclick="showPage('page1')"></span>
                 <span class="dot active"></span>
+                <span class="dot" onclick="showPage('page3')"></span>
+                <span class="dot" onclick="showPage('page4')"></span>
+            </div>
+        </div>
+
+        <!-- Page 3: OTP History -->
+        <div class="page hidden" id="page3">
+            <div class="page-header">
+                <h1>OTP HISTORY</h1>
+                <p>All Generated Codes</p>
+            </div>
+
+            <div class="details-grid">
+                <!-- Food OTPs -->
+                <div class="card">
+                    <h3>Food Delivery OTPs</h3>
+                    <div class="otp-history-list" id="foodHistory">
+                        <div class="empty-state">No OTPs generated yet</div>
+                    </div>
+                </div>
+
+                <!-- Package OTPs -->
+                <div class="card">
+                    <h3>Package Delivery OTPs</h3>
+                    <div class="otp-history-list" id="packageHistory">
+                        <div class="empty-state">No OTPs generated yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-dots">
+                <span class="dot" onclick="showPage('page1')"></span>
+                <span class="dot" onclick="showPage('page2')"></span>
+                <span class="dot active"></span>
+                <span class="dot" onclick="showPage('page4')"></span>
+            </div>
+        </div>
+
+        <!-- Page 4: Photo Gallery -->
+        <div class="page hidden" id="page4">
+            <div class="page-header">
+                <h1>PHOTOS</h1>
+                <p>Door Camera</p>
+            </div>
+
+            <div class="gallery-container">
+                <div class="gallery-grid" id="photoGallery">
+                    <div class="loading">Loading photos...</div>
+                </div>
+            </div>
+
+            <div class="nav-dots">
+                <span class="dot" onclick="showPage('page1')"></span>
+                <span class="dot" onclick="showPage('page2')"></span>
+                <span class="dot" onclick="showPage('page3')"></span>
+                <span class="dot active"></span>
+            </div>
+        </div>
+
+        <!-- Photo Viewer Modal -->
+        <div class="photo-modal hidden" id="photoModal" onclick="closePhotoModal()">
+            <div class="modal-content">
+                <button class="close-modal">×</button>
+                <img id="modalImage" src="" alt="Photo">
+                <div class="photo-info" id="photoInfo"></div>
             </div>
         </div>
     </div>
