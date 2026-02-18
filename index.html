@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Door Lock</title>
+    <title>Delivery Box</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -12,7 +12,7 @@
         <!-- Page 1: Dashboard -->
         <div class="page" id="page1">
             <div class="page-header">
-                <h1>DOOR LOCK</h1>
+                <h1>Delivery Box</h1>
                 <p>Main Control</p>
             </div>
 
@@ -32,27 +32,13 @@
                     </div>
                 </div>
 
-                <!-- Generate OTP for Food -->
-                <div class="card otp-card" onclick="generateOTP('food')">
-                    <h3>Food Delivery</h3>
-                    <p class="subtitle">Generate OTP</p>
-                    <div class="otp-display" id="otpFood"></div>
-                </div>
-
-                <!-- Generate OTP for Package -->
-                <div class="card otp-card" onclick="generateOTP('package')">
-                    <h3>Package Delivery</h3>
-                    <p class="subtitle">Generate OTP</p>
-                    <div class="otp-display" id="otpPackage"></div>
-                </div>
-
                 <!-- Quick Actions -->
                 <div class="action-grid">
                     <div class="action-btn" onclick="showPage('page2')">
                         <span>History</span>
                     </div>
                     <div class="action-btn" onclick="showPage('page3')">
-                        <span>OTP History</span>
+                        <span>Generate OTP</span>
                     </div>
                     <div class="action-btn" onclick="toggleLockout()">
                         <span id="lockBtn">Lockout</span>
@@ -74,7 +60,7 @@
         <!-- Page 2: Access Details -->
         <div class="page hidden" id="page2">
             <div class="page-header">
-                <h1>ACCESS LOG</h1>
+                <h1>Access Log</h1>
                 <p>Recent Activity</p>
             </div>
 
@@ -124,28 +110,30 @@
             </div>
         </div>
 
-        <!-- Page 3: OTP History -->
+        <!-- Page 3: Generate OTP -->
         <div class="page hidden" id="page3">
             <div class="page-header">
-                <h1>OTP HISTORY</h1>
-                <p>All Generated Codes</p>
+                <h1>Generate OTP</h1>
+                <p>Create Access Code</p>
             </div>
 
-            <div class="details-grid">
-                <!-- Food OTPs -->
-                <div class="card">
-                    <h3>Food Delivery OTPs</h3>
-                    <div class="otp-history-list" id="foodHistory">
-                        <div class="empty-state">No OTPs generated yet</div>
-                    </div>
+            <div class="dashboard-grid">
+                <!-- Generate OTP for Food -->
+                <div class="card otp-card" onclick="generateOTP('food')">
+                    <h3>Food</h3>
+                    <div class="otp-display" id="otpFood"></div>
                 </div>
 
-                <!-- Package OTPs -->
-                <div class="card">
-                    <h3>Package Delivery OTPs</h3>
-                    <div class="otp-history-list" id="packageHistory">
-                        <div class="empty-state">No OTPs generated yet</div>
-                    </div>
+                <!-- Generate OTP for Package -->
+                <div class="card otp-card" onclick="generateOTP('package')">
+                    <h3>Parcel</h3>
+                    <div class="otp-display" id="otpPackage"></div>
+                </div>
+
+                <!-- View History Button -->
+                <div class="card" onclick="showPage('page5')">
+                    <h3>View OTP History</h3>
+                    <p class="subtitle">See all generated codes</p>
                 </div>
             </div>
 
@@ -160,8 +148,8 @@
         <!-- Page 4: Photo Gallery -->
         <div class="page hidden" id="page4">
             <div class="page-header">
-                <h1>PHOTOS</h1>
-                <p>Door Camera</p>
+                <h1>Photos</h1>
+                <p>Box Camera</p>
             </div>
 
             <div class="gallery-container">
@@ -175,6 +163,39 @@
                 <span class="dot" onclick="showPage('page2')"></span>
                 <span class="dot" onclick="showPage('page3')"></span>
                 <span class="dot active"></span>
+            </div>
+        </div>
+
+        <!-- Page 5: OTP History -->
+        <div class="page hidden" id="page5">
+            <div class="page-header">
+                <h1>OTP History</h1>
+                <p>All Generated Codes</p>
+            </div>
+
+            <div class="details-grid">
+                <!-- Food OTPs -->
+                <div class="card">
+                    <h3>Food OTPs</h3>
+                    <div class="otp-history-list" id="foodHistory">
+                        <div class="empty-state">No OTPs generated yet</div>
+                    </div>
+                </div>
+
+                <!-- Package OTPs -->
+                <div class="card">
+                    <h3>Parcel OTPs</h3>
+                    <div class="otp-history-list" id="packageHistory">
+                        <div class="empty-state">No OTPs generated yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-dots">
+                <span class="dot" onclick="showPage('page1')"></span>
+                <span class="dot" onclick="showPage('page2')"></span>
+                <span class="dot" onclick="showPage('page3')"></span>
+                <span class="dot" onclick="showPage('page4')"></span>
             </div>
         </div>
 

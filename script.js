@@ -17,8 +17,8 @@ function showPage(pageId) {
     });
     document.getElementById(pageId).classList.remove('hidden');
     
-    // Update history display when going to page 3
-    if (pageId === 'page3') {
+    // Update history display when going to page 5
+    if (pageId === 'page5') {
         updateHistoryDisplay();
     }
     
@@ -159,13 +159,14 @@ function displayPhotos(files) {
         var item = document.createElement('div');
         item.className = 'gallery-item';
         
-        // Use thumbnail for grid, full image for modal
+        // Use thumbnail for grid
         var thumbnailUrl = file.thumbnailLink || 'https://drive.google.com/thumbnail?id=' + file.id;
-        var fullImageUrl = 'https://drive.google.com/uc?id=' + file.id;
+        // Use direct download link for full image
+        var fullImageUrl = 'https://drive.google.com/uc?export=view&id=' + file.id;
         
-        item.innerHTML = '<img src="' + thumbnailUrl + '" alt="' + file.name + '">';
+        item.innerHTML = '<img src="' + thumbnailUrl + '" alt="Photo">';
         item.onclick = function() {
-            openPhotoModal(fullImageUrl, file.name, file.createdTime);
+            openPhotoModal(fullImageUrl, file.createdTime);
         };
         
         gallery.appendChild(item);
@@ -184,7 +185,7 @@ function loadDemoPhotos() {
         item.innerHTML = '<img src="https://via.placeholder.com/300x300/f0f0f0/999?text=Photo+' + i + '" alt="Demo Photo ' + i + '">';
         item.onclick = (function(num) {
             return function() {
-                openPhotoModal('https://via.placeholder.com/800x800/f0f0f0/999?text=Photo+' + num, 'Demo Photo ' + num, new Date());
+                openPhotoModal('https://via.placeholder.com/800x800/f0f0f0/999?text=Photo+' + num, new Date());
             };
         })(i);
         gallery.appendChild(item);
@@ -192,13 +193,13 @@ function loadDemoPhotos() {
 }
 
 // Open photo in modal
-function openPhotoModal(imageUrl, name, time) {
+function openPhotoModal(imageUrl, time) {
     var modal = document.getElementById('photoModal');
     var modalImage = document.getElementById('modalImage');
     var photoInfo = document.getElementById('photoInfo');
     
     modalImage.src = imageUrl;
-    photoInfo.textContent = name + ' • ' + formatPhotoTime(time);
+    photoInfo.textContent = formatPhotoTime(time);
     
     modal.classList.remove('hidden');
 }
